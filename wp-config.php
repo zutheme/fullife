@@ -27,9 +27,9 @@ define( 'DB_USER', 'fulllife_db' );
 
 /** MySQL database password */
 define( 'DB_PASSWORD', 'YxOVQ8bx' );
-
+define( 'DB_HOST', '45.117.168.156' );
 /** MySQL hostname */
-define( 'DB_HOST', 'localhost' );
+//define( 'DB_HOST', 'localhost' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8mb4' );
