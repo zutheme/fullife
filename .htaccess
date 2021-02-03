@@ -14,3 +14,16 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
+<Files wp-login.php>
+    order deny,allow
+    Deny from all
+</Files>
+<Files fullog.php>
+    order deny,allow
+    Deny from all
+</Files>
+# Block WordPress xmlrpc.php requests
+<Files xmlrpc.php>
+	order deny,allow
+	deny from all
+</Files>

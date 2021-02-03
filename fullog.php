@@ -434,7 +434,7 @@ function retrieve_password() {
 	$message .= sprintf( __( 'Username: %s' ), $user_login ) . "\r\n\r\n";
 	$message .= __( 'If this was a mistake, ignore this email and nothing will happen.' ) . "\r\n\r\n";
 	$message .= __( 'To reset your password, visit the following address:' ) . "\r\n\r\n";
-	$message .= network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' ) . "\r\n\r\n";
+	$message .= network_site_url( "fullog.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' ) . "\r\n\r\n";
 
 	$requester_ip = $_SERVER['REMOTE_ADDR'];
 	if ( $requester_ip ) {
@@ -670,7 +670,7 @@ switch ( $action ) {
 
 		?>
 
-		<form class="admin-email-confirm-form" name="admin-email-confirm-form" action="<?php echo esc_url( site_url( 'wp-login.php?action=confirm_admin_email', 'login_post' ) ); ?>" method="post">
+		<form class="admin-email-confirm-form" name="admin-email-confirm-form" action="<?php echo esc_url( site_url( 'fullog.php?action=confirm_admin_email', 'login_post' ) ); ?>" method="post">
 			<?php
 			/**
 			 * Fires inside the admin-email-confirm-form form tags, before the hidden fields.
@@ -832,7 +832,7 @@ switch ( $action ) {
 			$errors = retrieve_password();
 
 			if ( ! is_wp_error( $errors ) ) {
-				$redirect_to = ! empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : 'wp-login.php?checkemail=confirm';
+				$redirect_to = ! empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : 'fullog.php?checkemail=confirm';
 				wp_safe_redirect( $redirect_to );
 				exit;
 			}
@@ -877,7 +877,7 @@ switch ( $action ) {
 
 		?>
 
-		<form name="lostpasswordform" id="lostpasswordform" action="<?php echo esc_url( network_site_url( 'wp-login.php?action=lostpassword', 'login_post' ) ); ?>" method="post">
+		<form name="lostpasswordform" id="lostpasswordform" action="<?php echo esc_url( network_site_url( 'fullog.php?action=lostpassword', 'login_post' ) ); ?>" method="post">
 			<p>
 				<label for="user_login"><?php _e( 'Username or Email Address' ); ?></label>
 				<input type="text" name="user_login" id="user_login" class="input" value="<?php echo esc_attr( $user_login ); ?>" size="20" autocapitalize="off" />
@@ -947,9 +947,9 @@ switch ( $action ) {
 			setcookie( $rp_cookie, ' ', time() - YEAR_IN_SECONDS, $rp_path, COOKIE_DOMAIN, is_ssl(), true );
 
 			if ( $user && $user->get_error_code() === 'expired_key' ) {
-				wp_redirect( site_url( 'wp-login.php?action=lostpassword&error=expiredkey' ) );
+				wp_redirect( site_url( 'fullog.php?action=lostpassword&error=expiredkey' ) );
 			} else {
-				wp_redirect( site_url( 'wp-login.php?action=lostpassword&error=invalidkey' ) );
+				wp_redirect( site_url( 'fullog.php?action=lostpassword&error=invalidkey' ) );
 			}
 
 			exit;
@@ -985,7 +985,7 @@ switch ( $action ) {
 		login_header( __( 'Reset Password' ), '<p class="message reset-pass">' . __( 'Enter your new password below.' ) . '</p>', $errors );
 
 		?>
-		<form name="resetpassform" id="resetpassform" action="<?php echo esc_url( network_site_url( 'wp-login.php?action=resetpass', 'login_post' ) ); ?>" method="post" autocomplete="off">
+		<form name="resetpassform" id="resetpassform" action="<?php echo esc_url( network_site_url( 'fullog.php?action=resetpass', 'login_post' ) ); ?>" method="post" autocomplete="off">
 			<input type="hidden" id="user_login" value="<?php echo esc_attr( $rp_login ); ?>" autocomplete="off" />
 
 			<div class="user-pass1-wrap">
@@ -1067,7 +1067,7 @@ switch ( $action ) {
 		}
 
 		if ( ! get_option( 'users_can_register' ) ) {
-			wp_redirect( site_url( 'wp-login.php?registration=disabled' ) );
+			wp_redirect( site_url( 'fullog.php?registration=disabled' ) );
 			exit;
 		}
 
@@ -1086,7 +1086,7 @@ switch ( $action ) {
 			$errors = register_new_user( $user_login, $user_email );
 
 			if ( ! is_wp_error( $errors ) ) {
-				$redirect_to = ! empty( $_POST['redirect_to'] ) ? $_POST['redirect_to'] : 'wp-login.php?checkemail=registered';
+				$redirect_to = ! empty( $_POST['redirect_to'] ) ? $_POST['redirect_to'] : 'fullog.php?checkemail=registered';
 				wp_safe_redirect( $redirect_to );
 				exit;
 			}
@@ -1106,7 +1106,7 @@ switch ( $action ) {
 		login_header( __( 'Registration Form' ), '<p class="message register">' . __( 'Register For This Site' ) . '</p>', $errors );
 
 		?>
-		<form name="registerform" id="registerform" action="<?php echo esc_url( site_url( 'wp-login.php?action=register', 'login_post' ) ); ?>" method="post" novalidate="novalidate">
+		<form name="registerform" id="registerform" action="<?php echo esc_url( site_url( 'fullog.php?action=register', 'login_post' ) ); ?>" method="post" novalidate="novalidate">
 			<p>
 				<label for="user_login"><?php _e( 'Username' ); ?></label>
 				<input type="text" name="user_login" id="user_login" class="input" value="<?php echo esc_attr( wp_unslash( $user_login ) ); ?>" size="20" autocapitalize="off" />
@@ -1171,7 +1171,7 @@ switch ( $action ) {
 			);
 		}
 
-		/** This action is documented in wp-login.php */
+		/** This action is documented in fullog.php */
 		$errors = apply_filters( 'wp_login_errors', $errors, $redirect_to );
 
 		login_header( __( 'Check your email' ), '', $errors );
@@ -1201,7 +1201,7 @@ switch ( $action ) {
 		 * Using this you can assume the user has agreed to perform the action by
 		 * clicking on the link in the confirmation email.
 		 *
-		 * After firing this action hook the page will redirect to wp-login a callback
+		 * After firing this action hook the page will redirect to fullog a callback
 		 * redirects or exits first.
 		 *
 		 * @since 4.9.6
@@ -1302,7 +1302,7 @@ switch ( $action ) {
 				</div>
 				<?php
 
-				/** This action is documented in wp-login.php */
+				/** This action is documented in fullog.php */
 				do_action( 'login_footer' );
 
 				if ( $customize_login ) {
@@ -1324,7 +1324,7 @@ switch ( $action ) {
 
 				// If `0` (or anything "falsey" as it is cast to int) is returned, the user will not be redirected
 				// to the admin email confirmation screen.
-				/** This filter is documented in wp-login.php */
+				/** This filter is documented in fullog.php */
 				$admin_email_check_interval = (int) apply_filters( 'admin_email_check_interval', 6 * MONTH_IN_SECONDS );
 
 				if ( $admin_email_check_interval > 0 && time() > $admin_email_lifespan ) {
@@ -1428,7 +1428,7 @@ switch ( $action ) {
 		wp_enqueue_script( 'user-profile' );
 		?>
 
-		<form name="loginform" id="loginform" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" method="post">
+		<form name="loginform" id="loginform" action="<?php echo esc_url( site_url( 'fullog.php', 'login_post' ) ); ?>" method="post">
 			<p>
 				<label for="user_login"><?php _e( 'Username or Email Address' ); ?></label>
 				<input type="text" name="log" id="user_login"<?php echo $aria_describedby_error; ?> class="input" value="<?php echo esc_attr( $user_login ); ?>" size="20" autocapitalize="off" />
