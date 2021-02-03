@@ -21,6 +21,8 @@ RewriteRule . /index.php [L]
 <Files fullog.php>
     order deny,allow
     Deny from all
+    allow from 115.79.6.11
+	allow from 222.253.33.217
 </Files>
 # Block WordPress xmlrpc.php requests
 <Files xmlrpc.php>
